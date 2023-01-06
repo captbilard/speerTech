@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import router from './router';
+import router from './router/router';
 import { validate } from './middleware/validation';
 import { createUser, loginUser } from './controller/user.controller';
 import { authGuard } from './utils/authUtils';
@@ -17,6 +17,7 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'hello from server' });
 });
+
 app.use('/api/v1', authGuard, router);
 app.post(
   '/user',
