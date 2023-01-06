@@ -1,29 +1,29 @@
 import { Prisma } from '@prisma/client';
 import prisma from '../../prisma/db';
 
-export const getAllTweet = async () => {
+export const findAll = async () => {
   try {
     const tweets = await prisma.tweet.findMany();
-    return { data: tweets };
+    return { tweets };
   } catch (e) {
     throw e;
   }
 };
 
-export const getOneTweet = async (tweetId) => {
+export const findOne = async (tweetId) => {
   try {
     const tweet = await prisma.tweet.findUnique({
       where: {
         id: tweetId
       }
     });
-    return { data: tweet };
+    return { tweet };
   } catch (e) {
     throw e;
   }
 };
 
-export const createTweet = async (payload) => {
+export const create = async (payload) => {
   try {
     const { message, userId } = payload;
     const tweet = await prisma.tweet.create({
@@ -32,13 +32,13 @@ export const createTweet = async (payload) => {
         userId
       }
     });
-    return { data: tweet };
+    return { tweet };
   } catch (e) {
     throw e;
   }
 };
 
-export const updateTweet = async (payload) => {
+export const update = async (payload) => {
   try {
     const { message, userId, tweetId } = payload;
     const updatedTweet = await prisma.tweet.update({
@@ -52,13 +52,13 @@ export const updateTweet = async (payload) => {
         message
       }
     });
-    return { data: updatedTweet };
+    return { updatedTweet };
   } catch (e) {
     throw e;
   }
 };
 
-export const deleteTweet = async (payload) => {
+export const removeTweet = async (payload) => {
   try {
     const { tweetId, userId } = payload;
     const deletedTweet = await prisma.tweet.delete({
@@ -69,7 +69,7 @@ export const deleteTweet = async (payload) => {
         }
       }
     });
-    return { data: deletedTweet.id };
+    return { deletedTweet };
   } catch (e) {
     throw e;
   }
