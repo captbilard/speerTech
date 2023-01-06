@@ -18,6 +18,11 @@ export const getAllTweet = async (req, res, next) => {
 export const getOneTweet = async (req, res, next) => {
   try {
     const response = await findOne(req.params.id);
+    if (response.tweet == null) {
+      return res
+        .status(404)
+        .json({ message: `Tweet with id: ${req.params.id} not found` });
+    }
     res.status(200).json({ data: response.tweet });
   } catch (e) {
     next(e);
