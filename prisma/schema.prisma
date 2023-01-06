@@ -27,4 +27,6 @@ model Tweet {
 
   userId    String
   belongsTo User   @relation(fields: [userId], references: [id])
+
+  @@unique([id, userId])
 }
