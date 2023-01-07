@@ -8,12 +8,17 @@ const data = {
 };
 const tweet = { message: 'test message' };
 const client = request(app);
+
+const clearDb = async () => {
+  return await prisma.user.deleteMany({ where: { username: 'testUser' } });
+};
+
 describe('E2E Test', () => {
   beforeAll(async () => {
-    await prisma.user.deleteMany({ where: { username: 'testUser' } });
+    await clearDb();
   });
   afterEach(async () => {
-    await prisma.user.deleteMany({ where: { username: 'testUser' } });
+    await clearDb();
   });
 
   describe('GET /', () => {

@@ -1,12 +1,16 @@
 import * as userService from '../../services/user.service';
 import prisma from '../../../prisma/db';
 
+const clearDb = async () => {
+  return await prisma.user.deleteMany({ where: { username: 'test' } });
+};
+
 describe('User service test', () => {
   beforeEach(async () => {
-    await prisma.user.deleteMany({ where: { username: 'test' } });
+    await clearDb();
   });
   afterAll(async () => {
-    await prisma.user.deleteMany({ where: { username: 'test' } });
+    await clearDb();
   });
   describe('create user', () => {
     it('should create a user and return token', async () => {

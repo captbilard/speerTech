@@ -1,5 +1,10 @@
-describe('some test', () => {
-  it('should pass', () => {
-    expect(1).toBe(1);
+import * as tweetService from '../../services/tweet.service';
+
+describe('Tweet service test', () => {
+  describe('find all tweets', () => {
+    it('should return an array', async () => {
+      const data = await tweetService.findAll();
+      expect(data.tweets).toEqual(expect.any(Array));
+    });
   });
 });
