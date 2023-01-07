@@ -9,9 +9,11 @@ const data = {
 const tweet = { message: 'test message' };
 const client = request(app);
 describe('E2E Test', () => {
+  beforeAll(async () => {
+    await prisma.user.deleteMany({ where: { username: 'testUser' } });
+  });
   afterEach(async () => {
-    await prisma.tweet.deleteMany({});
-    await prisma.user.deleteMany({});
+    await prisma.user.deleteMany({ where: { username: 'testUser' } });
   });
 
   describe('GET /', () => {

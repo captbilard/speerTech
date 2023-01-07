@@ -26,7 +26,7 @@ model Tweet {
   message String @db.VarChar(280)
 
   userId    String
-  belongsTo User   @relation(fields: [userId], references: [id])
+  belongsTo User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([id, userId])
 }

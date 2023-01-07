@@ -27,7 +27,7 @@ export const create = async (username, password) => {
 
 export const signIn = async (username, password) => {
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findUniqueOrThrow({
       where: {
         username
       }
@@ -41,6 +41,11 @@ export const signIn = async (username, password) => {
     const token = createJWT(user);
     return { token };
   } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      if (e.code === 'P2025') {
+        e.message = 'Invalid Username or Password';
+      }
+    }
     throw e;
   }
 };
