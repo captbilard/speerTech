@@ -1,5 +1,5 @@
-import { Prisma } from '@prisma/client';
 import prisma from '../../prisma/db';
+import { Prisma } from '@prisma/client';
 
 export const findAll = async () => {
   try {
@@ -54,6 +54,11 @@ export const update = async (payload) => {
     });
     return { updatedTweet };
   } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      if (e.code === 'P2025') {
+        e.message = 'record not found';
+      }
+    }
     throw e;
   }
 };
@@ -71,6 +76,12 @@ export const removeTweet = async (payload) => {
     });
     return { deletedTweet };
   } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      if (e.code === 'P2025') {
+        e.message = 'Record does not exist';
+      }
+    }
+    throw e;
     throw e;
   }
 };

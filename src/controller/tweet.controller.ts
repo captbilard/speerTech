@@ -36,7 +36,7 @@ export const createTweet = async (req, res, next) => {
       userId: req.user.id
     };
     const response = await create(payload);
-    res.status(200).json({ data: response.tweet });
+    res.status(201).json({ data: response.tweet });
   } catch (e) {
     next(e);
   }
@@ -52,6 +52,7 @@ export const updateTweet = async (req, res, next) => {
     const response = await update(payload);
     res.status(200).json({ data: response.updatedTweet });
   } catch (e) {
+    e.type = 'not found';
     next(e);
   }
 };
@@ -62,6 +63,7 @@ export const deleteTweet = async (req, res, next) => {
     const response = await removeTweet(payload);
     res.status(200).json({ data: response.deletedTweet.id });
   } catch (e) {
+    e.type = 'not found';
     next(e);
   }
 };
