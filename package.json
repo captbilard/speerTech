@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "start": "ts-node ./src/index.ts",
+    "migrate": "npx prisma migrate dev"
   },
   "repository": {
     "type": "git",
