@@ -40,7 +40,7 @@ export const signIn = async (username, password) => {
 
     const token = createJWT(user);
     return { token };
-  } catch (error) {
-    throw error;
+  } catch (e) {
+    throw e;
   }
 };

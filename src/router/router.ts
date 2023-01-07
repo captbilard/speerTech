@@ -16,7 +16,12 @@ router.get('/tweet', getAllTweet);
 router.get('/tweet/:id', getOneTweet);
 
 // Create Tweet
-router.post('/tweet', body('message').exists(), validate, createTweet);
+router.post(
+  '/tweet',
+  body('message').exists().isLength({ max: 280 }),
+  validate,
+  createTweet
+);
 
 // Update Tweet
 router.put('/tweet/:id', body('message').exists(), validate, updateTweet);
